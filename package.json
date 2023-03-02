@@ -1,0 +1,7 @@
+{
+  "name": "ddd-ast",
+  "version": "1.0.0",
+  "dependencies": {
+    "java-parser": "^2.0.3"
+  }
+}

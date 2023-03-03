@@ -10,4 +10,4 @@ public class HelloWorldExample{
 
 new JavaIdentifiersVisitor(javaText)
     .parse()
-    .forEach(console.log);
+    .forEach(name => console.log(name));

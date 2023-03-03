@@ -1,24 +1,33 @@
-import { JavaCstVisitorWithDefaults, MethodHeaderCtx, parse, TypeIdentifierCtx } from "java-parser";
+import { CstNode, parse } from "java-parser";
 
-export class JavaIdentifiersVisitor extends JavaCstVisitorWithDefaults<string[], string[]> {
+export class JavaIdentifiersVisitor {
     constructor(private source: string) {
-        super();
     }
 
-    parse() {
-        this.validateVisitor();
+    parse(): string[] {
         const cstNode = parse(this.source);
-        return this.visit(cstNode, []);
+        return this.work(cstNode);
     }
 
-    typeIdentifier(ctx: TypeIdentifierCtx, param: string[]) {
-        param.push(ctx.Identifier[0].image);
-        return param;
-    }
+    private work(root: CstNode): string[] {
+        const inbox: CstNode[] = [root];
+        const images: string[] = [];
 
-    methodHeader(ctx: MethodHeaderCtx, param: string[]) {
-        const methodIdentifier = ctx.methodDeclarator[0].children.Identifier[0].image;
-        param.push(methodIdentifier);
-        return param;
+        while (inbox.length > 0) {
+            const node = inbox.shift()!;
+            for (const identifier in node.children) {
+                const child = node.children[identifier];
+                child.forEach(element => {
+                    if ('image' in element) {
+                        if(element.tokenType.name === 'Identifier') {
+                            images.push(element.image);
+                        }
+                    } else {
+                        inbox.push(element);
+                    }
+                })
+            }
+        }
+        return images;
     }
 }

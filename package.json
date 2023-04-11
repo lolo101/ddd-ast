@@ -1,6 +1,10 @@
 {
-  "name": "ddd-ast",
+  "name": "@lolo101/ddd-ast",
   "version": "1.0.0",
+  "files": [
+    "parse.ts",
+    "javaIdentifiersVisitor.ts"
+  ],
   "scripts": {
     "parse": "npx ts-node parse.ts"
   },

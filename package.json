@@ -1,6 +1,9 @@
 {
   "name": "ddd-ast",
   "version": "1.0.0",
+  "scripts": {
+    "parse": "npx ts-node parse.ts"
+  },
   "dependencies": {
     "java-parser": "^2.0.3",
     "ts-node": "^10.9.1"

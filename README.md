@@ -14,4 +14,4 @@ In the project directory:
 
 `npm install` to install required dependencies
 
-`npx ts-node parse.ts` to execute the parser on the Java source hardcoded into parse.ts
+`npm run parse` to execute the parser on the Java source hardcoded into parse.ts

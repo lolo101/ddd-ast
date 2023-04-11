@@ -10,8 +10,11 @@ Uses [java-parser](https://github.com/jhipster/prettier-java/tree/master/package
 Tree from Java files and extract identifiers and then collecting them, counting and sorting by count
 
 ## How to use
+
+### Standalone
+
 In the project directory:
 
 `npm install` to install required dependencies
 
-`npm run parse` to parse stdin
+`npm run ddd` to parse stdin

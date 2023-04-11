@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import { JavaIdentifiersVisitor } from "./javaIdentifiersVisitor";
 
 process.stdin.on('data', javaText => {

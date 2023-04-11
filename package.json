@@ -5,8 +5,11 @@
     "parse.ts",
     "javaIdentifiersVisitor.ts"
   ],
+  "bin": {
+    "ddd": "./parse.ts"
+  },
   "scripts": {
-    "parse": "npx ts-node parse.ts"
+    "ddd": "npx ts-node parse.ts"
   },
   "dependencies": {
     "java-parser": "^2.0.3",

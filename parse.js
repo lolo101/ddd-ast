@@ -1,5 +1,5 @@
-#!/usr/bin/env ts-node
-import { JavaIdentifiersVisitor } from "./javaIdentifiersVisitor";
+#!/usr/bin/env node
+import { JavaIdentifiersVisitor } from "./javaIdentifiersVisitor.js";
 
 process.stdin.on('data', javaText => {
         const visitor = new JavaIdentifiersVisitor(javaText.toString());

@@ -17,4 +17,4 @@ In the project directory:
 
 `npm install` to install required dependencies
 
-`npm run ddd` to parse stdin
+`node parse.js` to parse stdin

@@ -1,20 +1,21 @@
-import { CstNode, parse } from "java-parser";
+import { parse } from "java-parser";
 
 export class JavaIdentifiersVisitor {
-    constructor(private source: string) {
+    constructor(source) {
+        this.source = source;
     }
 
-    parse(): string[] {
+    parse() {
         const cstNode = parse(this.source);
         return this.work(cstNode);
     }
 
-    private work(root: CstNode): string[] {
-        const inbox: CstNode[] = [root];
-        const images: string[] = [];
+    work(root) {
+        const inbox = [root];
+        const images = [];
 
         while (inbox.length > 0) {
-            const node = inbox.shift()!;
+            const node = inbox.shift();
             for (const identifier in node.children) {
                 const child = node.children[identifier];
                 child.forEach(element => {

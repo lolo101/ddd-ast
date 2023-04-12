@@ -1,18 +1,15 @@
 {
   "name": "@lolo101/ddd-ast",
-  "version": "1.0.0",
+  "type": "module",
+  "version": "1.0.2",
   "files": [
-    "parse.ts",
-    "javaIdentifiersVisitor.ts"
+    "parse.js",
+    "javaIdentifiersVisitor.js"
   ],
   "bin": {
-    "ddd": "./parse.ts"
-  },
-  "scripts": {
-    "ddd": "npx ts-node parse.ts"
+    "ddd": "parse.js"
   },
   "dependencies": {
-    "java-parser": "^2.0.3",
-    "ts-node": "^10.9.1"
+    "java-parser": "^2.0.3"
   }
 }

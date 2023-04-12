@@ -1,2 +1,2 @@
 test:
-	cat HelloWorldExample.java | npm run parse
+	cat HelloWorldExample.java | node parse.js

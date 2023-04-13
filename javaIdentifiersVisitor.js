@@ -1,8 +1,19 @@
-import { parse } from "java-parser";
+import {parse} from "java-parser";
 
+/**
+ * Visits Java source file and collect Identifier tokens.
+ * The visitor may be configured to skip nodes in the syntax tree with a `config` object:
+ * ```
+ * const config = {
+ *     skip: ['packageDeclaration', 'importDeclaration']
+ * }
+ * new JavaIdentifiersVisitor(javaSource, config);
+ * ```
+ */
 export class JavaIdentifiersVisitor {
-    constructor(source) {
+    constructor(source, config) {
         this.source = source;
+        this.config = config
     }
 
     parse() {
@@ -14,19 +25,19 @@ export class JavaIdentifiersVisitor {
         const inbox = [root];
         const images = [];
 
-        while (inbox.length > 0) {
-            const node = inbox.shift();
+        for (let node; (node = inbox.shift());) {
             for (const identifier in node.children) {
-                const child = node.children[identifier];
-                child.forEach(element => {
-                    if ('image' in element) {
-                        if(element.tokenType.name === 'Identifier') {
-                            images.push(element.image);
+                node.children[identifier]
+                    .filter(element => !this.config?.skip?.includes(element.name))
+                    .forEach(element => {
+                        if ('image' in element) {
+                            if (element.tokenType.name === 'Identifier') {
+                                images.push(element.image);
+                            }
+                        } else {
+                            inbox.push(element);
                         }
-                    } else {
-                        inbox.push(element);
-                    }
-                })
+                    })
             }
         }
         return images;

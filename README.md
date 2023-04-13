@@ -18,3 +18,39 @@ In the project directory:
 `npm install` to install required dependencies
 
 `node parse.js` to parse stdin
+
+### As a dependency
+
+That's how this package is intended to be used 😃
+
+Suppose you have a Java project "my-java-project"
+
+Just create this `package.json` file at the root of the project:
+
+```json
+{
+  "name": "my-java-project",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@lolo101/ddd-ast": "1.0.2"
+  }
+}
+```
+Run `npm install`
+
+and then it becomes possible to use the `ddd` command in a script in your projects:
+
+```shell
+$ cat HelloWorldExample.java | ddd | sort | uniq -c | sort -nr
+      2 System
+      2 String
+      2 println
+      2 out
+      2 arguments
+      2 args
+      1 main
+      1 List
+      1 HelloWorldExample
+      1 asList
+      1 Arrays
+```

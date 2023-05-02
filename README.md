@@ -32,7 +32,7 @@ Just create this `package.json` file at the root of the project:
   "name": "my-java-project",
   "version": "0.0.1",
   "devDependencies": {
-    "@lolo101/ddd-ast": "1.0.2"
+    "@lolo101/ddd-ast": "1.0.4"
   }
 }
 ```
@@ -41,7 +41,7 @@ Run `npm install`
 and then it becomes possible to use the `ddd` command in a script in your projects:
 
 ```shell
-$ cat HelloWorldExample.java | ddd | sort | uniq -c | sort -nr
+$ cat HelloWorldExample.java | npx ddd | sort | uniq -c | sort -nr
       2 System
       2 String
       2 println

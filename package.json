@@ -1,7 +1,7 @@
 {
   "name": "@lolo101/ddd-ast",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "files": [
     "parse.js",
     "javaIdentifiersVisitor.js"

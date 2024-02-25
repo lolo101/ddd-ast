@@ -1,13 +1,28 @@
 # DDD AST
-Extract identifiers from Java sources
 
-## Objective
-Quickly establish a list of identifiers with their # of occurrences to match them with the ubiquitous language 
-dictionary and calculate a "DDD score"
+Find out whether your codebase is **Strongly Typed 💪** or _Stringly Typed 🤦🏻_
+
+## Why ?
+
+I believe that excellent code quality requires the developer to have a firm understanding
+of the business they implement.
+
+I believe a firm understanding of the business reflects in a meaningful typing of the code.
 
 ## Principle
-Uses [java-parser](https://github.com/jhipster/prettier-java/tree/master/packages/java-parser) to build Concrete Syntax 
-Tree from Java files and extract identifiers and then collecting them, counting and sorting by count
+
+The idea is to collect types used in the business logic code in order to compare it with the ubiquitous language.
+
+With this insight the developer can quantify how much the codebase correctly models the problem to solve.
+
+## The tool
+
+ddd-ast uses [java-parser](https://github.com/jhipster/prettier-java/tree/master/packages/java-parser) to build Concrete Syntax Tree from Java files,
+collects types identifiers that describe:
+- fields
+- variables
+- parameters
+- methods result
 
 ## How to use
 
@@ -32,7 +47,7 @@ Just create this `package.json` file at the root of the project:
   "name": "my-java-project",
   "version": "0.0.1",
   "devDependencies": {
-    "@lolo101/ddd-ast": "1.0.4"
+    "@lolo101/ddd-ast": "latest"
   }
 }
 ```

@@ -1,16 +1,17 @@
 import {parse} from "java-parser";
 
 /**
- * Visits Java source file and collect Identifier tokens.
- * The visitor may be configured to skip nodes in the syntax tree with a `config` object:
+ * Visits Java source file and collect tokens.
+ * The visitor must be configured with the names of tokens to collect:
  * ```
  * const config = {
- *     skip: ['packageDeclaration', 'importDeclaration']
- * }
- * new JavaIdentifiersVisitor(javaSource, config);
+ *     collect: ['unannType']
+ * };
+ * new JavaTokens(javaSource, config);
  * ```
+ * The `parse` method returns an array with the images of collected tokens
  */
-export class JavaIdentifiersVisitor {
+export class JavaTokens {
     constructor(source, config) {
         this.source = source;
         this.config = config
@@ -18,22 +19,19 @@ export class JavaIdentifiersVisitor {
 
     parse() {
         const cstNode = parse(this.source);
-        return this.work(cstNode);
+        return this.collect(cstNode);
     }
 
-    work(root) {
+    collect(root) {
         const inbox = [root];
         const images = [];
 
         for (let node; (node = inbox.shift());) {
             for (const identifier in node.children) {
                 node.children[identifier]
-                    .filter(element => !this.config?.skip?.includes(element.name))
                     .forEach(element => {
-                        if ('image' in element) {
-                            if (element.tokenType.name === 'Identifier') {
-                                images.push(element.image);
-                            }
+                        if (this.config?.collect?.includes(element.name)) {
+                            images.push(this.image(element.location));
                         } else {
                             inbox.push(element);
                         }
@@ -41,5 +39,9 @@ export class JavaIdentifiersVisitor {
             }
         }
         return images;
+    }
+
+    image(location) {
+        return this.source.substring(location.startOffset, location.endOffset + 1);
     }
 }

@@ -69,3 +69,14 @@ $ cat HelloWorldExample.java | npx ddd | sort | uniq -c | sort -nr
       1 asList
       1 Arrays
 ```
+
+## How to maintain
+
+### How to release a new version
+
+I recommend using [np](https://github.com/sindresorhus/np) to publish a new release
+```shell
+npx np major
+npx np minor
+npx np patch
+```

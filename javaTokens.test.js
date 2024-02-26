@@ -114,4 +114,18 @@ public class HelloWorldExample {
             "Type2"
         ]);
     })
+
+    it('returns type parameters bound', () => {
+        const source = `
+public class HelloWorldExample {
+    private static ParamType<? super Type1, ParamType<? extends Type2>> toto = null;
+}
+        `
+        const visitor = new JavaTokens(source, config);
+        const identifiers = visitor.parse();
+        expect(identifiers).toEqual([
+            "Type2",
+            "Type1"
+        ]);
+    })
 })

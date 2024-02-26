@@ -23,7 +23,7 @@ export class JavaTokens {
                 node.children[identifier]
                     .forEach(element => {
                         if (element.name === 'unannType') {
-                            images.push(...this.typeArguments(element));
+                            images.push(...this.referenceTypes(element));
                         } else {
                             inbox.push(element);
                         }
@@ -33,15 +33,15 @@ export class JavaTokens {
         return images;
     }
 
-    typeArguments(element) {
+    referenceTypes(element) {
         const inbox = [element];
         const images = [];
         for (let node; (node = inbox.shift());) {
             for (const identifier in node.children) {
                 node.children[identifier]
                     .forEach(element => {
-                        if (element.name === 'typeArgument') {
-                            images.push(...this.typeArguments(element));
+                        if (element.name === 'referenceType') {
+                            images.push(...this.referenceTypes(element));
                         } else {
                             inbox.push(element);
                         }

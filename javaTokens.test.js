@@ -12,14 +12,14 @@ describe('javaTokens.js', () => {
     it('returns method result type', () => {
         const source = `
 public class HelloWorldExample {
-    private <T extends Bound & OtherBound> ReturnType<T> methodName() {
+    private ReturnType methodName() {
     }
 }
         `
         const visitor = new JavaTokens(source, config);
         const identifiers = visitor.parse();
         expect(identifiers).toEqual([
-            "ReturnType<T>"
+            "ReturnType"
         ]);
     })
 
@@ -52,7 +52,7 @@ public class HelloWorldExample {
         const identifiers = visitor.parse();
         expect(identifiers).toEqual([
             "VariableType",
-            "List<TypeParameter>",
+            "TypeParameter",
             "var"
         ]);
     })
@@ -61,14 +61,14 @@ public class HelloWorldExample {
         const source = `
 public class HelloWorldExample {
     private void methodName() {
-        Function<?> list = (Truc x) -> {return new Bidule(x.p());};
+        var list = (Truc x) -> {return new Bidule(x.p());};
     }
 }
         `
         const visitor = new JavaTokens(source, config);
         const identifiers = visitor.parse();
         expect(identifiers).toEqual([
-            "Function<?>",
+            "var",
             "Truc"
         ]);
     })
@@ -98,6 +98,20 @@ public class HelloWorldExample {
         const identifiers = visitor.parse();
         expect(identifiers).toEqual([
             "ClassVariable"
+        ]);
+    })
+
+    it('returns innermost type parameters', () => {
+        const source = `
+public class HelloWorldExample {
+    private static ParamType<Type1, ParamType<Type2>> toto = null;
+}
+        `
+        const visitor = new JavaTokens(source, config);
+        const identifiers = visitor.parse();
+        expect(identifiers).toEqual([
+            "Type1",
+            "Type2"
         ]);
     })
 })

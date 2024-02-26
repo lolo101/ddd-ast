@@ -1,20 +1,12 @@
 import {parse} from "java-parser";
 
 /**
- * Visits Java source file and collect tokens.
- * The visitor must be configured with the names of tokens to collect:
- * ```
- * const config = {
- *     collect: ['unannType']
- * };
- * new JavaTokens(javaSource, config);
- * ```
+ * Visits Java source file and collect 'unannType' tokens.
  * The `parse` method returns an array with the images of collected tokens
  */
 export class JavaTokens {
-    constructor(source, config) {
+    constructor(source) {
         this.source = source;
-        this.config = config
     }
 
     parse() {
@@ -30,8 +22,8 @@ export class JavaTokens {
             for (const identifier in node.children) {
                 node.children[identifier]
                     .forEach(element => {
-                        if (this.config?.collect?.includes(element.name)) {
-                            images.push(this.image(element.location));
+                        if (element.name === 'unannType') {
+                            images.push(...this.typeArguments(element));
                         } else {
                             inbox.push(element);
                         }
@@ -39,6 +31,24 @@ export class JavaTokens {
             }
         }
         return images;
+    }
+
+    typeArguments(element) {
+        const inbox = [element];
+        const images = [];
+        for (let node; (node = inbox.shift());) {
+            for (const identifier in node.children) {
+                node.children[identifier]
+                    .forEach(element => {
+                        if (element.name === 'typeArgument') {
+                            images.push(...this.typeArguments(element));
+                        } else {
+                            inbox.push(element);
+                        }
+                    })
+            }
+        }
+        return images.length ? images : [this.image(element.location)];
     }
 
     image(location) {
